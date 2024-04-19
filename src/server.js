@@ -12,3 +12,13 @@ const resolvers = {
         info: () => "News App",
     }
 };
+
+// ApolloServerをインスタンス化
+const server = new ApolloServer(
+    {
+        typeDefs,
+        resolvers
+    }
+);
+
+server.listen().then(({ url }) => console.log(`${url}でサーバーをを起動中...`))
