@@ -15,6 +15,10 @@ const typeDefs = gql`
         feed: [Link]!
     }
 
+    type Mutation {
+        post(url: String!, description: String!): Link!
+    }
+
     type Link {
         id : ID!
         description: String!
@@ -27,7 +31,21 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         info: () => "News App",
-        feed: () => links
+        feed: () => links,
+    },
+
+    Mutation: {
+        post: (params, args) => {
+            let idCount = links.length; // 配列の長さをIDに指定
+            const link = {
+                id: `link-${idCount++}`, // linkが増えるごとにIDも増やしていく
+                description: args.description,
+                url: args.url
+            };
+
+            links.push(link);
+            return link;
+        }
     }
 };
 
