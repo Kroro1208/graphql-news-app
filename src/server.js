@@ -1,34 +1,26 @@
+const { ApolloServer, gql } = require('apollo-server');
 const fs = require("fs");
 const path = require("path");
 
-const { ApolloServer, gql } = require('apollo-server');
-
-let links = [
-    {
-        id: "link-0",
-        description: "GraphQLを使用したNewsAppのためのWebAPI作成要領",
-        url: "https://news.ycombinator.com/"
-    }
-];
+const { PrismaClient } = require('prisma-client');
+const prisma = new PrismaClient;
 
 //resolver定義
 const resolvers = {
     Query: {
         info: () => "News App",
-        feed: () => links,
+        feed: async (parent, args, context) => {
+            return context.prisma.link.findMany();
+        }
     },
 
     Mutation: {
-        post: (params, args) => {
-            let idCount = links.length; // 配列の長さをIDに指定
-            const link = {
-                id: `link-${idCount++}`, // linkが増えるごとにIDも増やしていく
-                description: args.description,
-                url: args.url
-            };
-
-            links.push(link);
-            return link;
+        post: (parent, args, context) => {
+           const newLink = context.prisma.link.create({
+            data:args.url,
+            description: args.description
+           });
+           return newLink;
         }
     }
 };
@@ -37,7 +29,10 @@ const resolvers = {
 const server = new ApolloServer(
     {
         typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
-        resolvers
+        resolvers,
+        context: {
+            prisma,
+        }
     }
 );
 
