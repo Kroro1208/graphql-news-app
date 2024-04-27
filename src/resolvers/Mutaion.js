@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt');
-
-APP_SECRET_KEY = 'exryctfuvgybhuijo@p';
+const APP_SECRET_KEY = require("../utils");
 
 // ユーザー新規登録のリゾルバ
 async function signup(parent, args, context) {
@@ -41,4 +40,14 @@ async function longin(parent, args, context) {
         token,
         user
     }
+}
+
+// ニュースを投稿するリゾルバ
+async function post(parent, args, context) {
+    return await context.prisma.link.create({
+        data: {
+            url: args.url,
+            description: args.description,
+        }
+    });
 }
