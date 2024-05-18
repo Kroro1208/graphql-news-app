@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
 const APP_SECRET_KEY = require("../utils");
 
 // ユーザー新規登録のリゾルバ

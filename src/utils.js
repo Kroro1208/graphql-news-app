@@ -1,4 +1,4 @@
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
 APP_SECRET_KEY = 'exryctfuvgybhuijo@p';
 
 

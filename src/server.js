@@ -8,7 +8,7 @@ const { getUserId } = require('./utils');
 const prisma = new PrismaClient;
 
 //resoluver関係インポート
-const Links = require('./resolvers/Links');
+const Link = require('./resolvers/Link');
 const Mutation = require('./resolvers/Mutaion');
 const User = require('./resolvers/User');
 const Query = require('./resolvers/Query');
@@ -18,7 +18,7 @@ const Query = require('./resolvers/Query');
 //resolver定義
 const resolvers = {
     Query,
-    Links,
+    Link,
     Mutation,
     User
 };
