@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient()
 
 async function main() {
-    const newLink = await prisma.link.create(
+    await prisma.link.create(
         {
             data: {
                 description: "GraphQLを使用したNewsAppのためのWebAPI作成要領",
