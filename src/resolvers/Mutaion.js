@@ -23,7 +23,7 @@ async function signup(parent, args, context) {
 }
 
 // ユーザーログインのリゾルバ
-async function longin(parent, args, context) {
+async function login(parent, args, context) {
     const user = await context.prisma.user.findUnique({
         where: {email: args.email},
     });
@@ -44,10 +44,19 @@ async function longin(parent, args, context) {
 
 // ニュースを投稿するリゾルバ
 async function post(parent, args, context) {
+
+    const { userId } = context;
     return await context.prisma.link.create({
         data: {
             url: args.url,
             description: args.description,
+            postedBy: { connect: {id: userId} }
         }
     });
 }
+
+module.exports = {
+    signup,
+    login,
+    post
+};
