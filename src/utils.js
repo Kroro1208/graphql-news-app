@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken');
-APP_SECRET_KEY = 'exryctfuvgybhuijo@p';
-
+require('dotenv').config();
 
 // tokenを複合する関数
 function getTokenPayload(token) {
     //トークン化されたuser.idを複合する
-    return jwt.verify(token, APP_SECRET_KEY);
+    return jwt.verify(token, process.env.APP_SECRET_KEY);
 }
 
 function getUserId(req, authToken) {
@@ -28,6 +27,5 @@ function getUserId(req, authToken) {
 }
 
 module.exports = {
-    APP_SECRET_KEY,
     getUserId
 };

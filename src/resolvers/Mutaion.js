@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const APP_SECRET_KEY = require("../utils");
+require('dotenv').config();
 
 // ユーザー新規登録のリゾルバ
 async function signup(parent, args, context) {
@@ -15,7 +15,7 @@ async function signup(parent, args, context) {
             password
         }
     })
-    const token = jwt.sign({useId: user.id}, APP_SECRET_KEY);
+    const token = jwt.sign({userId: user.id}, process.env.APP_SECRET_KEY);
     return { 
         token,
         user
@@ -34,7 +34,7 @@ async function login(parent, args, context) {
     if(!valid) {
         throw new Error('無効なパスワードです');
     }
-    const token = jwt.sign({useId: user.id}, APP_SECRET_KEY);
+    const token = jwt.sign({usesId: user.id}, process.env.APP_SECRET_KEY);
 
     return {
         token,
