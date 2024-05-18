@@ -4,4 +4,4 @@ function feed (parent, args, context) {
 
 module.exports = {
     feed
-}
+};

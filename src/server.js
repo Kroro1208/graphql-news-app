@@ -7,26 +7,20 @@ const { getUserId } = require('./utils');
 
 const prisma = new PrismaClient;
 
+//resoluver関係インポート
+const Links = require('./resolvers/Links');
+const Mutation = require('./resolvers/Mutaion');
+const User = require('./resolvers/User');
+const Query = require('./resolvers/Query');
+
+
+
 //resolver定義
 const resolvers = {
-    Query: {
-        info: () => "News App",
-        feed: async (parent, args, context) => {
-            return context.prisma.link.findMany();
-        }
-    },
-
-    Mutation: {
-        post: (parent, args, context) => {
-           const newLink = context.prisma.link.create({
-            data: {
-                url: args.url,
-                description: args.description
-           },
-        });
-           return newLink;
-        }
-    }
+    Query,
+    Links,
+    Mutation,
+    User
 };
 
 // ApolloServerをインスタンス化
