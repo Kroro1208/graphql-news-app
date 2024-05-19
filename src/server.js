@@ -12,6 +12,7 @@ const Link = require('./resolvers/Link');
 const Mutation = require('./resolvers/Mutaion');
 const User = require('./resolvers/User');
 const Query = require('./resolvers/Query');
+const Subscription = require('./resolvers/Subscription');
 
 // Subscription(リアルタイム通信)の実装
 const { PubSub } = require('apollo-server');
@@ -22,7 +23,8 @@ const resolvers = {
     Query,
     Link,
     Mutation,
-    User
+    User,
+    Subscription
 };
 
 // ApolloServerをインスタンス化

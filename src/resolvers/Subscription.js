@@ -1,4 +1,4 @@
-function newLinkSubscribe(parent, args, context) {
+function newLinkSubscribe(context) {
     return context.pubsub.asyncIterator("NEW_LINK");
 }
 
