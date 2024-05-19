@@ -7,13 +7,15 @@ const { getUserId } = require('./utils');
 
 const prisma = new PrismaClient;
 
-//resoluver関係インポート
+//resolver関係インポート
 const Link = require('./resolvers/Link');
 const Mutation = require('./resolvers/Mutaion');
 const User = require('./resolvers/User');
 const Query = require('./resolvers/Query');
 
-
+// Subscription(リアルタイム通信)の実装
+const { PubSub } = require('apollo-server');
+const pubsub = new PubSub();
 
 //resolver定義
 const resolvers = {
@@ -32,6 +34,7 @@ const server = new ApolloServer(
             return {
                 ...req,
                 prisma,
+                pubsub,
                 userId: (req && req.headers.authorization) ? getUserId(req) : null
             }
         }
