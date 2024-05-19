@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // ユーザー新規登録のリゾルバ
-async function signup(parent, args, context) {
+async function signup(args, context) {
 
     //パスワード設定
     const password = await bcrypt.hash(args.password, 10);
@@ -23,7 +23,7 @@ async function signup(parent, args, context) {
 }
 
 // ユーザーログインのリゾルバ
-async function login(parent, args, context) {
+async function login(args, context) {
     const user = await context.prisma.user.findUnique({
         where: {email: args.email},
     });
@@ -43,7 +43,7 @@ async function login(parent, args, context) {
 }
 
 // ニュースを投稿するリゾルバ
-async function post(parent, args, context) {
+async function post(args, context) {
 
     const { userId } = context;
     return await context.prisma.link.create({

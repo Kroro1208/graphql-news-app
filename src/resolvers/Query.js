@@ -1,4 +1,4 @@
-function feed (parent, args, context) {
+function feed (context) {
     return context.prisma.link.findMany();
 }
 

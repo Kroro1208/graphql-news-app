@@ -1,5 +1,5 @@
 // 誰がnewsを投稿したのかのリゾルバ
-function postedBy(parent, args, context) {
+function postedBy(parent, context) {
     return context.prisma.link.findUnique({
         where: { id: parent.id }
     }).postedBy();
